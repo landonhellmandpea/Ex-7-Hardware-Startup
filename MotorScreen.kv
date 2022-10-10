@@ -1,0 +1,25 @@
+<MotorScreen>:
+
+    name: 'motor'
+    FloatLayout:
+        size_hint: None, None
+
+    DPEAButton:
+        id: goBack
+        width: 100
+        x: root.height * 0.05
+        y: root.width * 0.05
+        size: 100, 100
+        size_hint: None, None
+        color: 0.035, 0.152, 0.725, 1
+        text: "Return to Main"
+        on_press: root.transition3()
+
+    DPEAButton:
+            id: test_button
+            text: 'off'
+            size: 100, 100
+            x: root.width * 0.75
+            y: root.height * 0.5
+            on_press: root.pressedMotor()
+            color: 1, 0, 0, 1

@@ -1,0 +1,16 @@
+<ExampleScreen>:
+
+    name: 'example'
+    FloatLayout:
+        size_hint: None, None
+
+    Button:
+        id: wiseTree
+        width: 100
+        x: root.width * 0.2
+        y: root.height * 0
+        size: 200, 200
+        size_hint: None, None
+        color: 0.035, 0.152, 0.725, 1
+        text: "WHERE IS THIS DAMN BUTTON"
+        on_press: root.transition2()

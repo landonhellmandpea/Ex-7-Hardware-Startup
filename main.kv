@@ -1,0 +1,128 @@
+<MainScreen>:
+    #: import time __main__.time
+
+    name: 'main'
+    slide_text: slider_label
+    FloatLayout:
+        size_hint: None, None
+
+    Slider:
+        min: 0
+        max: 100
+        step: 1
+        orientation: "horizontal"
+        on_value: root.slide_it(*args)
+        y: root.height * 0.4
+
+    DPEAButton:
+        id: test_button
+        text: 'off'
+        size: 100, 100
+        x: root.width * 0.75
+        y: root.height * 0.5
+        on_press: root.animate()
+        on_press: root.pressed()
+        color: 1, 0, 0, 1
+
+
+    DPEAButton:
+        id: button_counter
+        text: "0"
+        size: 100, 100
+        x: root.width * 0.25
+        y: root.height * 0.5
+        color: 0, 0, 1, 1
+        on_press: root.pressed2()
+
+    DPEAButton:
+        id: motor
+        text: "Motor"
+        size: 100, 100
+        x: root.width * 0.05
+        y: root.height * 0.5
+        color: 1, 0, 1, 1
+        on_press: root.pressed3()
+
+    Label:
+        id: motorLabel
+        text: "Motor On"
+        size_hint: None, None
+        font_size: 30
+        center_x: root.width * 0.5
+        center_y: root.height * 0.7
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+
+    SelfUpdatingLabel:
+        id: time_label
+        size_hint: None, None
+        font_size: 30
+        update_property: time.now
+        update_property_parameters: None
+        center_x: root.width * 0.5
+        center_y: root.height * 0.45
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+
+    Label:
+        id: slider_label
+        text: "Slider"
+        font_size: 32
+        size_hint: None, None
+        center_x: root.width * 0.5
+        center_y: root.height * 0.95
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+
+    DPEAButton:
+        size: 100, 100
+        x: root.width * 0.05
+        y: root.height * 0.05
+        background_color: 0,0,0,0
+        color: 0.035, 0.152, 0.725, 1
+
+        text: "Don't Press This"
+        on_press: root.transition1()
+
+
+    DPEAButton:
+        id: location
+        size: 100, 100
+        x: root.width * 0.05
+        y: root.height * 0.25
+        background_color: 0, 0, 0, 0
+        color: 0.035, 0.035, 0.725, 1
+        text: "Location"
+        on_press: root.pressed4()
+
+    Label:
+        id: locationLabelx
+        text: "0, 0"
+        font_size: 32
+        size_hint: None, None
+        center_x: root.width * 0.5
+        center_y: root.height * 0.3
+        color: 1, 1, 1, 1
+        bold: True
+        outline_width: self.font_size * 0.1
+        outline_color: 0, 0, 0
+
+    DPEAButton:
+        id: goMotor
+        width: 100
+        x: root.height * 0.95
+        y: root.width * 0.05
+        size: 100, 100
+        size_hint: None, None
+        color: 0.035, 0.152, 0.725, 1
+        text: "Go to Motor"
+        on_press: root.transition4()
