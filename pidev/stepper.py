@@ -6,7 +6,7 @@ from threading import Thread
 
 import Slush
 from Slush.Devices import L6480Registers as LReg6480
-#from Slush.Boards.BoardUtilities import BoardTypes as Board
+from Slush.Boards.BoardUtilities import BoardTypes as Board
 
 from .slush_manager import slush_board as slush_board  # https://elcodis.com/parts/5983789/L6470_p49.html
 from .stepperutilities import *
