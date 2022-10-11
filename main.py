@@ -1,5 +1,7 @@
 import os
 import pygame
+import spidev
+
 pygame.init()
 import RPi.GPIO as GPIO
 
@@ -40,7 +42,7 @@ MOTOR_SCREEN_NAME = 'motor'
 
 joy = Joystick(0, True)
 
-#spi = spidev.SpiDev()
+spi = spidev.SpiDev()
 
 s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20, steps_per_unit=200, speed=8)
 
@@ -65,14 +67,6 @@ class ExampleScreen(Screen):
     def transition2(self):
         SCREEN_MANAGER.current = MAIN_SCREEN_NAME
 
-
-class MotorScreen(Screen):
-
-    def transition3(self):
-        SCREEN_MANAGER.current = MAIN_SCREEN_NAME
-
-    def pressedMotor(self):
-        s0.start_relative_move(5)
 
 
 
@@ -218,10 +212,8 @@ Widget additions
 
 Builder.load_file('main.kv')
 Builder.load_file('ExampleScreen.kv') #landon make sure to add builder to each kv screen so that you can actually see the damn button...
-Builder.load_file('MotorScreen.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(ExampleScreen(name=EXAMPLE_SCREEN_NAME))
-SCREEN_MANAGER.add_widget(MotorScreen(name=MOTOR_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
