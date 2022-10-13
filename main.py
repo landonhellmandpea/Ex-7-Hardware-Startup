@@ -189,7 +189,7 @@ class MainScreen(Screen):
     def exit_program(self):
         """
         Quit the program. This should free all steppers and do any cleanup necessary
-        :return: None
+        :return: None :(
         """
         s0.free_all()
         spi.close()
