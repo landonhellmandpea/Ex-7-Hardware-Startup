@@ -182,7 +182,7 @@ class MainScreen(Screen):
         joystick_location_x = joy.get_axis("x")
         joystick_location_y = joy.get_axis("y")
         joystick_coordinates = (joystick_location_x, joystick_location_y)
-        self.ids.locationLabelx.text = str(joystick_coordinates)
+        self.ids.locationLabelx.text = "Joystick Coordinates: " + str(joystick_coordinates)
 
 
 

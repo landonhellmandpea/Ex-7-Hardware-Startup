@@ -18,7 +18,7 @@
         id: test_button
         text: 'off'
         size: 100, 100
-        x: root.width * 0.75
+        x: root.width * 0.85
         y: root.height * 0.5
         on_press: root.animate()
         on_press: root.pressed()
@@ -29,8 +29,8 @@
         id: button_counter
         text: "0"
         size: 100, 100
-        x: root.width * 0.25
-        y: root.height * 0.5
+        center_x: root.width * 0.5
+        y: root.height * 0.05
         color: 0, 0, 1, 1
         on_press: root.pressed2()
 
@@ -93,17 +93,6 @@
         text: "Don't Press This"
         on_press: root.transition1()
 
-
-    DPEAButton:
-        id: location
-        size: 100, 100
-        x: root.width * 0.05
-        y: root.height * 0.25
-        background_color: 0, 0, 0, 0
-        color: 0.035, 0.035, 0.725, 1
-        text: "Location"
-        on_press: root.pressed4()
-
     Label:
         id: locationLabelx
         text: "0, 0"
@@ -120,8 +109,8 @@
         id: direction
         mDir: 0
         size: 100, 100
-        x: root.width * 0.5
-        y: root.height * 0.05
+        center_x: root.width * 0.5
+        y: root.height * 0.5
         background_color: 0, 0, 0, 0
         color: 1, 0, 1, 1
         text: "Direction: Counter-Clockwise"
@@ -130,11 +119,9 @@
     DPEAButton:
         # Quit button
         size: 100, 100
-        center_x: root.width * 0.95
-        center_y: root.height * 0.05
-
+        x: root.width * 0.85
+        y: root.height * 0.05
         background_color: 0,0,0,0
         color: 0.035, 0.152, 0.725, 1
-
         text: "Quit"
         on_press: root.exit_program()
