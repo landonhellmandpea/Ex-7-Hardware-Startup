@@ -147,10 +147,12 @@ class MainScreen(Screen):
 
         if self.ids.motorLabel.text == 'Motor On':
             self.ids.motorLabel.text = 'Motor Off'
+            self.ids.motorLabel.color = 1, 0.2, 0.2, 1
             s0.softStop()
 
         else:
             self.ids.motorLabel.text = 'Motor On'
+            self.ids.motorLabel.color = 0.2, 1, 0.2, 1
             s0.go_until_press(self.ids.direction.mDir, 6400)
 
     def direction(self):
