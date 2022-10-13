@@ -38,13 +38,14 @@ SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
 EXAMPLE_SCREEN_NAME = 'example'
-MOTOR_SCREEN_NAME = 'motor'
 
 joy = Joystick(0, True)
 
 spi = spidev.SpiDev()
+s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20, steps_per_unit=200, speed=2)
+s0.setMinSpeed(0)
+s0.setMaxSpeed(600)
 
-s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20, steps_per_unit=200, speed=8)
 
 class ProjectNameGUI(App):
     """
@@ -77,6 +78,11 @@ class MainScreen(Screen):
     joystick_location_x = joy.get_axis("x")
     joystick_location_y = joy.get_axis("y")
 
+    def slide_it(self, dt):
+        s0.setMaxSpeed(self.ids.slider.value_normalized * 600)
+        if self.ids.motorLabel.text == 'Motor On':
+            s0.run(self.ids.direction.mDir, 10000)
+
     def updateJoy(self, dt):
         joystick_location_x = joy.get_axis("x")
         joystick_location_y = joy.get_axis("y")
@@ -89,6 +95,9 @@ class MainScreen(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         Clock.schedule_interval(self.updateJoy, 0.001)
+        Clock.schedule_interval(self.directionAutomatic, 0.001)
+        Clock.schedule_interval(self.slide_it, 0.001)
+
 
 
     def animate(self):
@@ -102,11 +111,14 @@ class MainScreen(Screen):
             anim2.start(self)
 
 
+    def updateSpeed(self, speed):
+        s0.setMaxSpeed(speed * 10000)
+      #  if self.ids.motorLabel.text == 'Motor On':
+
+
+
     def transition1(self):
         SCREEN_MANAGER.current = EXAMPLE_SCREEN_NAME
-
-    def transition4(self):
-        SCREEN_MANAGER.current = MOTOR_SCREEN_NAME
 
     def pressed(self):
         """
@@ -135,9 +147,35 @@ class MainScreen(Screen):
 
         if self.ids.motorLabel.text == 'Motor On':
             self.ids.motorLabel.text = 'Motor Off'
+            s0.softStop()
 
         else:
             self.ids.motorLabel.text = 'Motor On'
+            s0.go_until_press(self.ids.direction.mDir, 6400)
+
+    def direction(self):
+
+        if self.ids.motorLabel.text == 'Motor On':
+
+            if self.ids.direction.text == "Direction: Clockwise":
+                self.ids.direction.mDir = 0
+                self.ids.direction.text = "Direction: Counter-Clockwise"
+
+            else:
+                self.ids.direction.mDir = 1
+                self.ids.direction.text = "Direction: Clockwise"
+
+
+    def directionAutomatic(self, dt):
+
+        if self.ids.motorLabel.text == 'Motor On':
+
+            if self.ids.direction.text == "Direction: Clockwise":
+                s0.go_until_press(0, 6400)
+
+            else:
+                s0.go_until_press(1, 6400)
+
 
     def pressed4(self):
 
@@ -146,11 +184,17 @@ class MainScreen(Screen):
         joystick_coordinates = (joystick_location_x, joystick_location_y)
         self.ids.locationLabelx.text = str(joystick_coordinates)
 
-    def slide_it(self, *args):
-        self.slide_text.text = str(int(args[1]))
-        t = int(args[1])
-        t = t / 100
-        self.ids.slider_label.color = 1, 1, 1, t
+
+
+    def exit_program(self):
+        """
+        Quit the program. This should free all steppers and do any cleanup necessary
+        :return: None
+        """
+        s0.free_all()
+        spi.close()
+        GPIO.cleanup()
+        quit()
 
     def admin_action(self):
         """
