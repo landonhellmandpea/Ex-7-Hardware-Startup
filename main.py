@@ -42,7 +42,7 @@ EXAMPLE_SCREEN_NAME = 'example'
 joy = Joystick(0, True)
 
 spi = spidev.SpiDev()
-s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20, steps_per_unit=200, speed=2)
+s0 = stepper(port=0, micro_steps=64, hold_current=20, run_current=20, accel_current=30, deaccel_current=30, steps_per_unit=200, speed=2)
 s0.setMinSpeed(0)
 s0.setMaxSpeed(600)
 
@@ -171,10 +171,10 @@ class MainScreen(Screen):
         if self.ids.motorLabel.text == 'Motor On':
 
             if self.ids.direction.text == "Direction: Clockwise":
-                s0.go_until_press(0, 6400)
+                s0.go_until_press(self.ids.direction.mDir, 6400)
 
             else:
-                s0.go_until_press(1, 6400)
+                s0.go_until_press(self.ids.direction.mDir, 6400)
 
 
     def pressed4(self):
