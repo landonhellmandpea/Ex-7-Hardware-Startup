@@ -3,6 +3,13 @@
   <component name="PublishConfigData" autoUpload="Always" serverName="pi@widget14-pi.local:22" exclude=".svn;.cvs;.idea;.DS_Store;.hg;*.hprof;*.pyc" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeDeletion="false">
     <option name="confirmBeforeDeletion" value="false" />
     <serverData>
+      <paths name="pi@pi-image2022.local">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/Documents/TEST" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="pi@widget14-pi.local:22">
         <serverdata>
           <mappings>
